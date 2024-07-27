@@ -5,13 +5,16 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
   color-scheme: dark;
-  color: #fefefe;
-  background-color: #242424;
+  color: var(--theme-foreground-color);
+  background-color: var(--theme-background-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --theme-background-color: #0f0f0f;
+  --theme-foreground-color: #fefefe;
 }
 
 a {
