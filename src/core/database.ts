@@ -1,4 +1,6 @@
+import { v4 } from 'uuid'
 import { Collection } from './collection'
+import { FirebaseNotesCollection } from './FirebaseNotesCollection'
 import { LocalNotesCollection } from './LocalNotesCollection'
 
 export interface DatabaseOptions {
@@ -25,15 +27,15 @@ export class Note {
   uid: string
   name: string
   content: string
+  createdAt: Date
+  updatedAt: Date
 
-  constructor(uid: string, name: string, content: string) {
-    this.uid = uid
-    this.name = name
-    this.content = content
-  }
-
-  static create(data: Record<string, any>) {
-    return new Note(data.uid, data.name, data.content)
+  constructor(data: Pick<Note, 'name' | 'content'>) {
+    this.uid = v4()
+    this.name = data.name || ''
+    this.content = data.content || ''
+    this.createdAt = new Date()
+    this.updatedAt = new Date()
   }
 }
 
@@ -47,6 +49,20 @@ export class LocalDatabase extends Database {
   }
 
   async sync() {
+    throw new Error('Method not implemented.')
+  }
+}
+
+export class FirebaseDatabase extends Database {
+  notes
+
+  constructor() {
+    super()
+
+    this.notes = new FirebaseNotesCollection()
+  }
+
+  async sync(): Promise<void> {
     throw new Error('Method not implemented.')
   }
 }

@@ -1,18 +1,26 @@
-import { createRxDatabase, RxDatabase } from 'rxdb'
-
-import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie'
+import Dexie, { EntityTable } from 'dexie'
 import { Collection } from './collection'
 import { Note } from './database'
 
+const REDSTONE = 'redstone'
+
 export class LocalNotesCollection extends Collection<Note> {
+  dexie
+
   constructor() {
     super()
+
+    this.dexie = new Dexie(REDSTONE) as Dexie & {
+      notes: EntityTable<Note, 'uid'>
+    }
+
+    this.dexie.version(1).stores({
+      notes: '++uid, name, content',
+    })
   }
 
   async search() {
-    const rxdb = await getInstance()
-    const items = await rxdb.notes.find().exec()
-    const notes = items && items.map(Note.create)
+    const notes = await this.dexie.notes.where('uid').notEqual('').sortBy('uid')
 
     return notes || []
   }
@@ -23,68 +31,15 @@ export class LocalNotesCollection extends Collection<Note> {
   }
 
   async add(item: Note) {
-    const rxdb = await getInstance()
-    await rxdb.notes.insert({
-      uid: item.uid,
-      name: item.name,
-      content: item.content,
-    })
+    await this.dexie.notes.add(item)
   }
 
   async update(item: Note) {
-    typeof item
+    item.updatedAt = new Date()
+    await this.dexie.notes.update(item.uid, item)
   }
 
   async remove(item: Note) {
     typeof item
   }
-}
-
-let promise: Promise<RxDatabase>
-
-async function getInstance() {
-  if (!promise) promise = create()
-  return promise
-}
-
-async function create() {
-  console.info('LocalNotesCollection: creating database...')
-  const _database = await createRxDatabase({
-    name: 'redstone',
-    storage: getRxStorageDexie(),
-  })
-  console.info('LocalNotesCollection: database has been created')
-
-  await _database.addCollections({
-    notes: {
-      schema: schema,
-      methods: {
-        sayHi() {
-          return 'This is a method'
-        },
-      },
-    },
-  })
-  console.info('LocalNotesCollection: notes collection has been created')
-  console.info('LocalNotesCollection: database has been initialized')
-
-  return _database
-}
-
-const schema = {
-  version: 0,
-  primaryKey: 'uid',
-  type: 'object',
-  properties: {
-    uid: {
-      type: 'string',
-      maxLength: 24, // <- the primary key must have set maxLength
-    },
-    name: {
-      type: 'string',
-    },
-    content: {
-      type: 'string',
-    },
-  },
 }

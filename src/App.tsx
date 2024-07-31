@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import Home from './app/pages/Home'
-import { LocalDatabase } from './core/database'
+import { Database } from './core/database'
+import { SyncedDatabase } from './core/SyncedDatabase'
 
 function App() {
-  const [database, setDatabase] = useState<LocalDatabase>()
+  const [database, setDatabase] = useState<Database>()
 
   useEffect(() => {
-    setDatabase(new LocalDatabase())
+    setDatabase(new SyncedDatabase())
   }, [])
 
   if (!database) {

@@ -1,5 +1,4 @@
 import { ChangeEvent, useState } from 'react'
-import { v4 } from 'uuid'
 import { Database, Note } from '../../../core/database'
 
 function NoteCreator({ database }: { database: Database }) {
@@ -10,7 +9,9 @@ function NoteCreator({ database }: { database: Database }) {
   }
 
   async function onClick() {
-    await database.notes.add(new Note(v4(), title, ''))
+    const note = new Note({ name: title, content: '' })
+    await database.notes.add(note)
+    setTitle('')
   }
 
   return (

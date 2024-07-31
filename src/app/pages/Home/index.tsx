@@ -1,21 +1,23 @@
-import { useEffect, useState } from 'react'
+import { useLiveQuery } from 'dexie-react-hooks'
 import { Database, Note } from '../../../core/database'
 import NoteCreator from '../../components/NoteCreator'
 
 function Home({ database }: { database: Database }) {
-  const [notes, setNotes] = useState<Note[]>([])
-
-  useEffect(() => {
-    database.notes.search().then(setNotes)
-  }, [database])
+  const notes = useLiveQuery(() => database.notes.search())
 
   return (
     <main>
       <NoteCreator database={database} />
 
-      {notes.map((note: any) => (
-        <div key={note.uid}>{note.name}</div>
-      ))}
+      {notes && (
+        <ul>
+          {notes.map((note: Note) => (
+            <li key={note.uid} id={note.uid}>
+              {note.name} - {note.content} ({note.updatedAt.toLocaleString()})
+            </li>
+          ))}
+        </ul>
+      )}
     </main>
   )
 }
