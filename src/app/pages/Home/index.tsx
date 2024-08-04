@@ -1,19 +1,22 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { Database, Note } from '../../../core/database'
+import { Block } from '../../../core/block'
 import NoteCreator from '../../components/NoteCreator'
+import { useStore } from '../../hooks/store'
 
-function Home({ database }: { database: Database }) {
-  const notes = useLiveQuery(() => database.notes.search())
+function Home() {
+  const store = useStore()
+  const blocks = useLiveQuery(() => store.query({}))
 
   return (
     <main>
-      <NoteCreator database={database} />
+      <NoteCreator />
 
-      {notes && (
+      {blocks && (
         <ul>
-          {notes.map((note: Note) => (
-            <li key={note.uid} id={note.uid}>
-              {note.name} - {note.content} ({note.updatedAt.toLocaleString()})
+          {blocks.map((block: Block) => (
+            <li key={block.id} id={block.id}>
+              {block.name} [{block.layout}]
+              <span> ({new Date(block.updatedAt).toUTCString()}) </span>
             </li>
           ))}
         </ul>

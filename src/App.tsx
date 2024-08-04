@@ -1,20 +1,15 @@
-import { useEffect, useState } from 'react'
+import { StoreProvider } from './app/context/store'
+import { DexieCluster } from './app/data'
 import Home from './app/pages/Home'
-import { Database } from './core/database'
-import { SyncedDatabase } from './core/SyncedDatabase'
+
+const cluster = new DexieCluster()
 
 function App() {
-  const [database, setDatabase] = useState<Database>()
-
-  useEffect(() => {
-    setDatabase(new SyncedDatabase())
-  }, [])
-
-  if (!database) {
-    return <div>Loading...</div>
-  }
-
-  return <Home database={database} />
+  return (
+    <StoreProvider value={cluster}>
+      <Home />
+    </StoreProvider>
+  )
 }
 
 export default App

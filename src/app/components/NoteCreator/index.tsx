@@ -1,7 +1,9 @@
 import { ChangeEvent, useState } from 'react'
-import { Database, Note } from '../../../core/database'
+import { Block, BlockLayout } from '../../../core/block'
+import { useStore } from '../../hooks/store'
 
-function NoteCreator({ database }: { database: Database }) {
+function NoteCreator() {
+  const store = useStore()
   const [title, setTitle] = useState('')
 
   function onChange(event: ChangeEvent<HTMLInputElement>) {
@@ -9,8 +11,10 @@ function NoteCreator({ database }: { database: Database }) {
   }
 
   async function onClick() {
-    const note = new Note({ name: title, content: '' })
-    await database.notes.add(note)
+    const name = title
+    const content = ''
+    const block = Block.create({ name, content, layout: BlockLayout.TASK })
+    await store.command('add', block)
     setTitle('')
   }
 
