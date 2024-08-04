@@ -3,6 +3,8 @@ import { Block } from '../../../core/block'
 import NoteCreator from '../../components/NoteCreator'
 import { useStore } from '../../hooks/store'
 
+import './Home.css'
+
 function Home() {
   const store = useStore()
   const blocks = useLiveQuery(() => store.query({}))
@@ -12,11 +14,15 @@ function Home() {
       <NoteCreator />
 
       {blocks && (
-        <ul>
+        <ul className="List">
           {blocks.map((block: Block) => (
-            <li key={block.id} id={block.id}>
-              {block.name} [{block.layout}]
-              <span> ({new Date(block.updatedAt).toUTCString()}) </span>
+            <li key={block.id} id={block.id} className="Card List__item">
+              <div className="Card__title">
+                [{block.layout}] {block.name}
+              </div>
+              <div className="Card__subtitle">
+                {new Date(block.updatedAt).toLocaleString()}
+              </div>
             </li>
           ))}
         </ul>

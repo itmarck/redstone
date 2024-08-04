@@ -25,7 +25,7 @@ function NoteCreator() {
   }
 
   return (
-    <div>
+    <div style={{ padding: '1rem', display: 'flex', gap: '1rem' }}>
       <input type="text" value={title} onChange={onTitleChange} />
 
       <select value={layout} onChange={onLayoutChange}>
