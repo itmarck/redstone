@@ -1,8 +1,20 @@
-import { Block } from './block'
+import { Block, BlockId, BlockLayout } from './block'
 
-export class Criteria {}
+export enum Action {
+  ADD = 'add',
+  UPDATE = 'update',
+  DELETE = 'delete',
+}
 
-export class Command {}
+export interface Criteria {
+  layout?: BlockLayout
+  sortBy?: string
+}
+
+export interface Command {
+  action: Action
+  blockId?: BlockId
+}
 
 export abstract class Cluster {
   /**

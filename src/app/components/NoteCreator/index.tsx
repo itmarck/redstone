@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react'
 import { Block, BlockLayout } from '../../../core/block'
 import { useStore } from '../../hooks/store'
+import { Action } from '../../../core/cluster'
 
 function NoteCreator() {
   const store = useStore()
@@ -19,7 +20,7 @@ function NoteCreator() {
     const name = title
     const content = ''
     const block = Block.create({ name, content, layout })
-    await store.command('add', block)
+    await store.command({ action: Action.ADD }, block)
     setTitle('')
     setLayout(BlockLayout.NONE)
   }

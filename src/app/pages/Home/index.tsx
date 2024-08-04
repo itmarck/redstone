@@ -1,5 +1,5 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { Block } from '../../../core/block'
+import { Block, BlockLayout } from '../../../core/block'
 import NoteCreator from '../../components/NoteCreator'
 import { useStore } from '../../hooks/store'
 
@@ -7,7 +7,12 @@ import './Home.css'
 
 function Home() {
   const store = useStore()
-  const blocks = useLiveQuery(() => store.query({}))
+  const blocks = useLiveQuery(() =>
+    store.query({
+      layout: BlockLayout.TASK,
+      sortBy: 'createdAt',
+    }),
+  )
 
   return (
     <main>

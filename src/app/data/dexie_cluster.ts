@@ -1,5 +1,5 @@
 import { Dexie, EntityTable } from 'dexie'
-import { Cluster, Command, Criteria } from '../../core/cluster'
+import { Action, Cluster, Command, Criteria } from '../../core/cluster'
 import { Block } from '../../core/block'
 
 export class DexieCluster extends Cluster {
@@ -13,22 +13,39 @@ export class DexieCluster extends Cluster {
     }
 
     this.dexie.version(1).stores({
-      blocks: '++uid, name, content',
+      blocks: '++uid, name, layout, content',
     })
   }
 
   async query(criteria: Criteria): Promise<Block[]> {
-    criteria
-    const table = this.dexie.blocks
-    const filter = table.toCollection()
+    let collection = this.dexie.blocks.toCollection()
+    let promise
 
-    return await filter.sortBy('name')
+    if (criteria.layout) {
+      collection = this.dexie.blocks.where('layout').equals(criteria.layout)
+    }
+
+    if (criteria.sortBy) {
+      promise = collection.sortBy(criteria.sortBy)
+    } else {
+      promise = collection.toArray()
+    }
+
+    const response = await promise
+    return response || []
   }
 
   async command(command: Command, block: Block): Promise<Block> {
-    command
-    const table = this.dexie.blocks
-    await table.add(block)
+    const action = command.action
+
+    switch (action) {
+      case Action.ADD:
+        await this.dexie.blocks.add(block)
+        break
+      default:
+        break
+    }
+
     return block
   }
 }
