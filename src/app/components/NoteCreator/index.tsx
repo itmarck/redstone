@@ -1,10 +1,10 @@
 import { ChangeEvent, useState } from 'react'
 import { Block, BlockType } from '../../../core/block'
-import { Action } from '../../../core/cluster'
-import { useStore } from '../../hooks/store'
+import { Action } from '../../../core/repository'
+import { useRepository } from '../../hooks'
 
 function NoteCreator() {
-  const store = useStore()
+  const repository = useRepository()
   const [title, setTitle] = useState('')
   const [type, setType] = useState(BlockType.NONE)
 
@@ -20,7 +20,7 @@ function NoteCreator() {
     const name = title
     const content = ''
     const block = Block.create({ name, type, content })
-    await store.command({ action: Action.ADD }, block)
+    await repository.command({ action: Action.ADD }, block)
 
     setTitle('')
     setType(BlockType.NONE)

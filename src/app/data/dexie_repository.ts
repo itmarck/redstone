@@ -1,8 +1,8 @@
 import { Dexie, EntityTable } from 'dexie'
-import { Action, Cluster, Command, Criteria } from '../../core/cluster'
+import { Action, Repository, Command, Criteria } from '../../core/repository'
 import { Block } from '../../core/block'
 
-export class DexieCluster extends Cluster {
+export class DexieRepository extends Repository {
   dexie
 
   constructor() {

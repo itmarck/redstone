@@ -16,7 +16,7 @@ export interface Command {
   blockId?: BlockId
 }
 
-export abstract class Cluster {
+export abstract class Repository {
   /**
    * Filters all items in the collection.
    * @param criteria Options to filter by.

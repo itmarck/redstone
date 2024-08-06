@@ -1,14 +1,14 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { Block, BlockType } from '../../../core/block'
 import NoteCreator from '../../components/NoteCreator'
-import { useStore } from '../../hooks/store'
+import { useRepository } from '../../hooks'
 
 import './Home.css'
 
 function Home() {
-  const store = useStore()
+  const repository = useRepository()
   const blocks = useLiveQuery(() =>
-    store.query({
+    repository.query({
       type: BlockType.TASK,
       sortBy: 'createdAt',
     }),

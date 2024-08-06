@@ -9,9 +9,9 @@ import {
   setDoc,
 } from 'firebase/firestore'
 import { Block } from '../../core/block'
-import { Cluster, Command, Criteria } from '../../core/cluster'
+import { Repository, Command, Criteria } from '../../core/repository'
 
-export class FirestoreCluster extends Cluster {
+export class FirestoreRepository extends Repository {
   private firestore: Firestore
 
   constructor() {

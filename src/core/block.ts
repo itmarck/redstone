@@ -6,6 +6,8 @@ export enum BlockType {
   NONE = 'none',
   TASK = 'task',
   NOTE = 'note',
+  AREA = 'area',
+  ACCOUNT = 'account',
 }
 
 export enum BlockLayout {
