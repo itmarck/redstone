@@ -13,7 +13,7 @@ export class DexieCluster extends Cluster {
     }
 
     this.dexie.version(1).stores({
-      blocks: '++uid, name, layout, content',
+      blocks: '++uid, name, type, content',
     })
   }
 
@@ -21,8 +21,8 @@ export class DexieCluster extends Cluster {
     let collection = this.dexie.blocks.toCollection()
     let promise
 
-    if (criteria.layout) {
-      collection = this.dexie.blocks.where('layout').equals(criteria.layout)
+    if (criteria.type) {
+      collection = this.dexie.blocks.where('type').equals(criteria.type)
     }
 
     if (criteria.sortBy) {

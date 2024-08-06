@@ -1,4 +1,4 @@
-import { Block, BlockId, BlockLayout } from './block'
+import { Block, BlockId, BlockType } from './block'
 
 export enum Action {
   ADD = 'add',
@@ -7,7 +7,7 @@ export enum Action {
 }
 
 export interface Criteria {
-  layout?: BlockLayout
+  type?: BlockType
   sortBy?: string
 }
 

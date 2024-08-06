@@ -1,38 +1,39 @@
 import { ChangeEvent, useState } from 'react'
-import { Block, BlockLayout } from '../../../core/block'
-import { useStore } from '../../hooks/store'
+import { Block, BlockType } from '../../../core/block'
 import { Action } from '../../../core/cluster'
+import { useStore } from '../../hooks/store'
 
 function NoteCreator() {
   const store = useStore()
   const [title, setTitle] = useState('')
-  const [layout, setLayout] = useState(BlockLayout.NONE)
+  const [type, setType] = useState(BlockType.NONE)
 
   function onTitleChange(event: ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value)
   }
 
-  function onLayoutChange(event: ChangeEvent<HTMLSelectElement>) {
-    setLayout(event.target.value as BlockLayout)
+  function onTypeChange(event: ChangeEvent<HTMLSelectElement>) {
+    setType(event.target.value as BlockType)
   }
 
   async function onClick() {
     const name = title
     const content = ''
-    const block = Block.create({ name, content, layout })
+    const block = Block.create({ name, type, content })
     await store.command({ action: Action.ADD }, block)
+
     setTitle('')
-    setLayout(BlockLayout.NONE)
+    setType(BlockType.NONE)
   }
 
   return (
     <div style={{ padding: '1rem', display: 'flex', gap: '1rem' }}>
       <input type="text" value={title} onChange={onTitleChange} />
 
-      <select value={layout} onChange={onLayoutChange}>
-        <option value={BlockLayout.NONE}>None</option>
-        <option value={BlockLayout.TASK}>Task</option>
-        <option value={BlockLayout.NOTE}>Note</option>
+      <select value={type} onChange={onTypeChange}>
+        <option value={BlockType.NONE}>None</option>
+        <option value={BlockType.TASK}>Task</option>
+        <option value={BlockType.NOTE}>Note</option>
       </select>
 
       <button onClick={onClick}>Add</button>

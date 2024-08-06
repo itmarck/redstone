@@ -1,5 +1,5 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { Block, BlockLayout } from '../../../core/block'
+import { Block, BlockType } from '../../../core/block'
 import NoteCreator from '../../components/NoteCreator'
 import { useStore } from '../../hooks/store'
 
@@ -9,7 +9,7 @@ function Home() {
   const store = useStore()
   const blocks = useLiveQuery(() =>
     store.query({
-      layout: BlockLayout.TASK,
+      type: BlockType.TASK,
       sortBy: 'createdAt',
     }),
   )
@@ -23,7 +23,7 @@ function Home() {
           {blocks.map((block: Block) => (
             <li key={block.id} id={block.id} className="Card List__item">
               <div className="Card__title">
-                [{block.layout}] {block.name}
+                [{block.type}] {block.name}
               </div>
               <div className="Card__subtitle">
                 {new Date(block.updatedAt).toLocaleString()}
