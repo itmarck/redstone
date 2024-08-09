@@ -1,0 +1,33 @@
+.Layout {
+  display: flex;
+  overflow: hidden;
+}
+.Layout__block {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+}
+.Layout__content {
+  flex: auto;
+}
+
+.Navigation {
+  background: #0c0c0c;
+  height: 100vh;
+}
+
+.Navigation ul {
+  display: flex;
+  flex-direction: column;
+}
+.Navigation li {
+  padding: 1rem;
+  font-size: 18px;
+}
+
+.Bar {
+  width: 100%;
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #1a1a1a;
+}

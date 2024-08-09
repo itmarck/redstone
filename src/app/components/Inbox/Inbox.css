@@ -1,0 +1,28 @@
+.Inbox {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 1rem;
+  background: #1a1a1a;
+}
+
+.Inbox__input {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+}
+
+.Inbox__button {
+  fill: #cdcdcd;
+  width: 1.2rem;
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0.6rem;
+  cursor: pointer;
+}
