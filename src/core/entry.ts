@@ -1,4 +1,4 @@
-import { v4 } from 'uuid'
+import { createId } from './id'
 
 export type EntryId = string
 
@@ -16,7 +16,7 @@ export class Entry {
   content: string
 
   constructor(entry: Partial<Entry>) {
-    this.id = entry.id || v4()
+    this.id = entry.id || createId()
     this.type = entry.type || EntryType.PARAGRAPH
     this.content = entry.content || ''
   }

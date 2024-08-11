@@ -1,4 +1,4 @@
-import { v4 } from 'uuid'
+import { createId } from './id'
 import { Entry } from './entry'
 
 export type BlockId = string
@@ -22,12 +22,11 @@ export class Block {
   layout: BlockLayout
   entries: Entry[]
   ranking: number
-  content?: string
   createdAt: number
   updatedAt: number
 
   constructor(block: Partial<Block>) {
-    this.id = block.id || v4()
+    this.id = block.id || createId()
     this.name = block.name || ''
     this.type = block.type || BlockType.NONE
     this.layout = block.layout || BlockLayout.NONE
@@ -40,13 +39,11 @@ export class Block {
   static create({
     name,
     type,
-    content,
     entries,
   }: Omit<Block, 'id' | 'layout' | 'ranking' | 'createdAt' | 'updatedAt'>) {
     return new Block({
       name,
       type,
-      content,
       entries,
     })
   }

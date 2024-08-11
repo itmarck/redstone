@@ -3,26 +3,30 @@ import { Action, Repository, Command, Criteria } from '../../core/repository'
 import { Block } from '../../core/block'
 
 export class DexieRepository extends Repository {
-  dexie
+  blocks
 
   constructor() {
     super()
 
-    this.dexie = new Dexie('redstone') as Dexie & {
+    const dexie = new Dexie('redstone') as Dexie & {
       blocks: EntityTable<Block, 'id'>
     }
 
-    this.dexie.version(1).stores({
-      blocks: '++uid, name, type, content',
+    dexie.version(1).stores({
+      blocks: '&id, name, type, ranking',
     })
+
+    dexie.blocks.mapToClass(Block)
+
+    this.blocks = dexie.blocks
   }
 
   async query(criteria: Criteria): Promise<Block[]> {
-    let collection = this.dexie.blocks.toCollection()
+    let collection = this.blocks.toCollection()
     let promise
 
     if (criteria.type) {
-      collection = this.dexie.blocks.where('type').equals(criteria.type)
+      collection = this.blocks.where('type').equals(criteria.type)
     }
 
     if (criteria.sortBy) {
@@ -40,7 +44,7 @@ export class DexieRepository extends Repository {
 
     switch (action) {
       case Action.ADD:
-        await this.dexie.blocks.add(block)
+        await this.blocks.add(block)
         break
       default:
         break
