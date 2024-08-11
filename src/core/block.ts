@@ -1,4 +1,5 @@
 import { v4 } from 'uuid'
+import { Entry } from './entry'
 
 export type BlockId = string
 
@@ -19,8 +20,9 @@ export class Block {
   name: string
   type: BlockType
   layout: BlockLayout
+  entries: Entry[]
   ranking: number
-  content: string
+  content?: string
   createdAt: number
   updatedAt: number
 
@@ -29,8 +31,8 @@ export class Block {
     this.name = block.name || ''
     this.type = block.type || BlockType.NONE
     this.layout = block.layout || BlockLayout.NONE
+    this.entries = block.entries || []
     this.ranking = block.ranking || 0
-    this.content = block.content || ''
     this.createdAt = block.createdAt || Date.now()
     this.updatedAt = block.updatedAt || Date.now()
   }
@@ -39,11 +41,13 @@ export class Block {
     name,
     type,
     content,
+    entries,
   }: Omit<Block, 'id' | 'layout' | 'ranking' | 'createdAt' | 'updatedAt'>) {
     return new Block({
       name,
       type,
       content,
+      entries,
     })
   }
 }

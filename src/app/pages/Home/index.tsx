@@ -23,14 +23,39 @@ function Home() {
                 [{block.ranking} {block.type}] {block.name}
               </div>
               <div className="Card__subtitle">
-                {new Date(block.updatedAt).toLocaleString()}
+                {parseElapsedTime(block.updatedAt)}
               </div>
+              {block.entries && block.entries.length > 0 && (
+                <div className="Card__content">
+                  {block.entries.map((entry) => (
+                    <div key={entry.id}>
+                      ({entry.type}) {entry.content}
+                    </div>
+                  ))}
+                </div>
+              )}
             </li>
           ))}
         </ul>
       )}
     </main>
   )
+}
+
+function parseElapsedTime(time: number) {
+  const elapsed = Date.now() - time
+  const minutes = Math.floor(elapsed / 1000 / 60)
+  const days = Math.floor(minutes / 60 / 24)
+
+  if (minutes === 0) {
+    return 'just now'
+  }
+
+  if (days > 0) {
+    return `${days} days ago`
+  }
+
+  return `${minutes} min ago`
 }
 
 export default Home
