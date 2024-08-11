@@ -1,16 +1,16 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
 import { RepositoryProvider } from './app/context/repository'
 import { DexieRepository } from './app/data'
-import Home from './app/pages/Home'
-import Layout from './ui/Layout'
+import { routes } from './app/pages'
 
+const router = createBrowserRouter(routes)
 const repository = new DexieRepository()
 
 function App() {
   return (
     <RepositoryProvider value={repository}>
-      <Layout>
-        <Home />
-      </Layout>
+      <RouterProvider router={router} />
     </RepositoryProvider>
   )
 }

@@ -2,33 +2,18 @@
   display: flex;
   overflow: hidden;
 }
+
 .Layout__block {
   flex: auto;
   display: flex;
   flex-direction: column;
 }
+
 .Layout__content {
   flex: auto;
   margin-top: 2.5rem;
   margin-left: 3rem;
   margin-bottom: 3rem;
-}
-
-.Navigation {
-  position: fixed;
-  left: 0;
-  top: 0;
-  background: #0c0c0c;
-  height: 100vh;
-}
-
-.Navigation ul {
-  display: flex;
-  flex-direction: column;
-}
-.Navigation li {
-  padding: 1rem;
-  font-size: 18px;
 }
 
 .Bar {
