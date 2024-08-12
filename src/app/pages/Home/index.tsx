@@ -1,5 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { Block, BlockType } from '../../../core/block'
+import { Action } from '../../../core'
+import { Block, BlockType } from '../../../core'
 import { useRepository } from '../../hooks'
 
 import './Home.css'
@@ -13,12 +14,27 @@ function Home() {
     }),
   )
 
+  function onBlockClick(event: React.MouseEvent<HTMLLIElement>) {
+    const blockId = event.currentTarget.id
+    const block = blocks?.find((block) => block.id === blockId)
+
+    if (block) {
+      block.type = BlockType.NOTE
+      repository.command({ action: Action.UPDATE }, block)
+    }
+  }
+
   return (
     <main>
       {blocks && (
         <ul className="List">
           {blocks.map((block: Block) => (
-            <li key={block.id} id={block.id} className="Card List__item">
+            <li
+              key={block.id}
+              id={block.id}
+              className="Card List__item"
+              onClick={onBlockClick}
+            >
               <div className="Card__title">
                 [{block.ranking} {block.type}] {block.name}
               </div>

@@ -7,7 +7,13 @@ function Navigation() {
     <nav className="Navigation">
       <ul>
         <li>
-          <Link to="/">H</Link>
+          <Link to="/">T</Link>
+        </li>
+        <li>
+          <Link to="/notes">N</Link>
+        </li>
+        <li>
+          <Link to="/accounts">A</Link>
         </li>
         <li>
           <Link to="/settings">S</Link>
