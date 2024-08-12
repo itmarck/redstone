@@ -9,6 +9,7 @@ export enum Action {
 export interface Criteria {
   type?: BlockType
   sortBy?: string
+  blockId?: BlockId
 }
 
 export interface Command {

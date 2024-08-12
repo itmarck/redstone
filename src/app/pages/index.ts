@@ -1,5 +1,6 @@
 import { RouteObject } from 'react-router-dom'
 
+import Editor from '../components/Editor'
 import Layout from '../components/Layout'
 import Accounts from './Accounts'
 import Home from './Home'
@@ -17,7 +18,16 @@ export const routes: RouteObject[] = [
       },
       {
         path: 'notes',
-        Component: Notes,
+        children: [
+          {
+            path: '',
+            Component: Notes,
+          },
+          {
+            path: ':id',
+            Component: Editor,
+          },
+        ],
       },
       {
         path: 'accounts',
