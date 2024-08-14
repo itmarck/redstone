@@ -1,4 +1,5 @@
 import { Block, BlockId, BlockType } from './block'
+import { Entry } from './entry'
 
 export enum Action {
   ADD = 'add',
@@ -15,6 +16,7 @@ export interface Criteria {
 export interface Command {
   action: Action
   blockId?: BlockId
+  entry?: Entry
 }
 
 export abstract class Repository {
@@ -25,10 +27,16 @@ export abstract class Repository {
    */
   abstract query(criteria: Criteria): Promise<Block[]>
   /**
+   * Get entries from a block.
+   * @param blockId The id of the block.
+   * @returns The entries.
+   */
+  abstract getEntries(blockId: BlockId): Promise<Entry[]>
+  /**
    * Applies a command to an item in the collection.
    * @param command Action to apply.
    * @param item Item to be modified.
    * @returns The processed item.
    */
-  abstract command(command: Command, block: Block): Promise<Block>
+  abstract command(command: Command, block: Block): Promise<void>
 }

@@ -1,0 +1,26 @@
+.Editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.Entry {
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+.Entry--add {
+  color: #999;
+  text-align: left;
+  cursor: text;
+}
+
+.Entry:hover {
+  background: #1a1a1a;
+}
+
+.Entry:focus {
+  outline: 1px solid #1a1a1a;
+}

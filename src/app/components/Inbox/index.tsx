@@ -1,7 +1,6 @@
 import { ChangeEvent, useState } from 'react'
-import { Block, BlockType } from '../../../core/block'
-import { Entry } from '../../../core/entry'
-import { Action } from '../../../core/repository'
+
+import { Action, Block, BlockType } from '../../../core'
 import { useRepository } from '../../hooks'
 
 import './Inbox.css'
@@ -26,12 +25,7 @@ function Inbox() {
 
     const name = title
     const type = BlockType.TASK
-    const content = 'This is empty'
-    const entries = [
-      new Entry({ content: 'This is a paragraph' }),
-      new Entry({ content: 'This is another paragraph' }),
-    ]
-    const block = Block.create({ name, type, content, entries })
+    const block = Block.create({ name, type })
     repository.command({ action: Action.ADD }, block)
 
     setTitle('')

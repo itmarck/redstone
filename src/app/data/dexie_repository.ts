@@ -48,14 +48,32 @@ export class DexieRepository extends Repository {
     return response || []
   }
 
-  async command(command: Command, block: Block): Promise<Block> {
+  async getEntries(blockId: string): Promise<Entry[]> {
+    const table = this.entries
+    const collection = table.where('blockId').equals(blockId)
+    const entries = await collection.sortBy('createdAt')
+
+    return entries
+  }
+
+  async command(command: Command, block: Block): Promise<void> {
     const action = command.action
+    const blockId = block.id
 
     switch (action) {
       case Action.ADD:
-        await this.blocks.add(block)
+        if (command.entry) {
+          await this.entries.add(command.entry)
+        } else {
+          await this.blocks.add(block)
+          await this.entries.add(Entry.create({ blockId }))
+        }
         break
       case Action.UPDATE:
+        if (command.entry) {
+          await this.entries.update(command.entry.id, { ...command.entry })
+          break
+        }
         await this.blocks.update(block.id, { ...block })
         break
       case Action.DELETE:
@@ -64,7 +82,5 @@ export class DexieRepository extends Repository {
       default:
         break
     }
-
-    return block
   }
 }
