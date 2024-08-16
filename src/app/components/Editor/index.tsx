@@ -2,6 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { useParams } from 'react-router-dom'
 
 import { Action, Entry } from '../../../core'
+import Editable from '../../../ui/Editable'
 import { useRepository } from '../../hooks'
 
 import './Editor.css'
@@ -26,16 +27,18 @@ function Editor() {
       </header>
       <section className="Editor">
         {entries?.map((entry) => (
-          <input
+          <Editable
             key={entry.id}
-            id={entry.id}
             className="Entry"
-            defaultValue={entry.content}
-            onChange={(event) => {
+            value={entry.content}
+            onChange={(value) => {
               repository.command(
                 {
                   action: Action.UPDATE,
-                  entry: { ...entry, content: event.target.value },
+                  entry: {
+                    ...entry,
+                    content: value,
+                  },
                 },
                 block,
               )
