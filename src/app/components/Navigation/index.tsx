@@ -7,16 +7,24 @@ function Navigation() {
     <nav className="Navigation">
       <ul>
         <li>
-          <Link to="/">T</Link>
+          <Link to="/">
+            <div className="material-symbols-rounded">select_check_box</div>
+          </Link>
         </li>
         <li>
-          <Link to="/notes">N</Link>
+          <Link to="/notes">
+            <div className="material-symbols-rounded">note_stack</div>
+          </Link>
         </li>
         <li>
-          <Link to="/accounts">A</Link>
+          <Link to="/accounts">
+            <div className="material-symbols-rounded">wallet</div>
+          </Link>
         </li>
         <li>
-          <Link to="/settings">S</Link>
+          <Link to="/settings">
+            <div className="material-symbols-rounded">search</div>
+          </Link>
         </li>
       </ul>
     </nav>

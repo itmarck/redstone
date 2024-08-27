@@ -41,15 +41,6 @@ function Home() {
               <div className="Card__subtitle">
                 {parseElapsedTime(block.updatedAt)}
               </div>
-              {block.entries && block.entries.length > 0 && (
-                <div className="Card__content">
-                  {block.entries.map((entry) => (
-                    <div key={entry.id}>
-                      ({entry.type}) {entry.content}
-                    </div>
-                  ))}
-                </div>
-              )}
             </li>
           ))}
         </ul>

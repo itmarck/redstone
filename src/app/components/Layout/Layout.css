@@ -25,4 +25,13 @@
   padding: 0.5rem 1rem;
   margin-left: 3rem;
   border-bottom: 1px solid #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.Bar__status {
+  flex: auto;
+}
+.Bar .material-symbols-rounded {
+  font-size: 16px;
 }
