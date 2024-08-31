@@ -15,8 +15,8 @@ export class DexieRepository extends Repository {
     }
 
     dexie.version(1).stores({
-      blocks: '&id, name, type, ranking',
-      entries: '&id, blockId, type, content',
+      blocks: '&id, name, type, ranking, syncedAt',
+      entries: '&id, blockId, type, content, syncedAt',
     })
 
     dexie.blocks.mapToClass(Block)
@@ -30,12 +30,18 @@ export class DexieRepository extends Repository {
     let collection = this.blocks.toCollection()
     let promise
 
+    const obj: { [key: string]: any } = {}
+
     if (criteria.type) {
-      collection = this.blocks.where('type').equals(criteria.type)
+      obj['type'] = criteria.type
     }
 
     if (criteria.blockId) {
-      collection = this.blocks.where('id').equals(criteria.blockId)
+      obj['id'] = criteria.blockId
+    }
+
+    if (Object.keys(obj).length > 0) {
+      collection = this.blocks.where(obj)
     }
 
     if (criteria.sortBy) {

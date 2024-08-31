@@ -25,7 +25,7 @@ function Inbox() {
 
     const name = title
     const type = BlockType.TASK
-    const block = Block.create({ name, type })
+    const block = new Block({ name, type })
     repository.command({ action: Action.ADD }, block)
 
     setTitle('')

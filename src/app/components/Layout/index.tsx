@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 
+import Bar from '../Bar'
 import Inbox from '../Inbox'
 import Navigation from '../Navigation'
 
@@ -11,14 +12,7 @@ function Layout() {
       <Navigation />
 
       <div className="Layout__block">
-        <header className="Bar">
-          <div className="Bar__status">There are 5 elements</div>
-          <span className="material-symbols-rounded">undo</span>
-          <span className="material-symbols-rounded">redo</span>
-          <span className="material-symbols-rounded">cloud_sync</span>
-          <span className="material-symbols-rounded">wifi_tethering</span>
-          <span className="material-symbols-rounded">settings</span>
-        </header>
+        <Bar />
 
         <main className="Layout__content">
           <Outlet />

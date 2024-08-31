@@ -39,7 +39,7 @@ function Home() {
                 [{block.ranking} {block.type}] {block.name}
               </div>
               <div className="Card__subtitle">
-                {parseElapsedTime(block.updatedAt)}
+                {parseElapsedTime(block.createdAt)}
               </div>
             </li>
           ))}

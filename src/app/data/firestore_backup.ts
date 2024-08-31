@@ -9,14 +9,11 @@ import {
   setDoc,
 } from 'firebase/firestore'
 import { Block } from '../../core/block'
-import { Repository, Command, Criteria } from '../../core/repository'
 
-export class FirestoreRepository extends Repository {
+export class FirestoreBackup {
   private firestore: Firestore
 
   constructor() {
-    super()
-
     const config = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG)
     const app = initializeApp(config)
     const firestore = getFirestore(app)
@@ -26,9 +23,7 @@ export class FirestoreRepository extends Repository {
     this.firestore = firestore
   }
 
-  async query(criteria: Criteria): Promise<Block[]> {
-    criteria
-
+  async pull(): Promise<Block[]> {
     const col = collection(
       this.firestore,
       'accounts',
@@ -36,19 +31,15 @@ export class FirestoreRepository extends Repository {
       'blocks',
     )
     const response = await getDocs(col)
-    const blocks = response.docs.map((doc) => new Block(doc.data()))
-    console.info('Blocks from firebase', blocks)
+    const blocks = response.docs.map((doc) => Block.from(doc.data()))
     return blocks
   }
 
-  async command(command: Command, block: Block): Promise<Block> {
-    command
-
-    const response = await setDoc(
+  async commit(block: Block): Promise<void> {
+    block.commit()
+    await setDoc(
       doc(this.firestore, 'accounts/m.velasquez@globant.com/blocks', block.id),
       JSON.parse(JSON.stringify(block)),
     )
-    console.info('Block added to firestore', response)
-    return block
   }
 }
