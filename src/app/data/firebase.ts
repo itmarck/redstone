@@ -1,5 +1,9 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+} from 'firebase/auth'
 import {
   collection,
   doc,
@@ -10,18 +14,34 @@ import {
 } from 'firebase/firestore'
 import { Block } from '../../core/block'
 import { Cloud } from '../../core/repository'
+import { Preferences } from './preferences'
 
 export class FirebaseCloud implements Cloud {
   private firestore: Firestore
 
   constructor() {
-    const config = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG)
-    const app = initializeApp(config)
+    const projectId = Preferences.projectId
+    const apiKey = Preferences.apiKey
+    const app = initializeApp({ projectId, apiKey })
     const firestore = getFirestore(app)
 
     getAuth(app)
 
     this.firestore = firestore
+  }
+
+  async signIn(password: string): Promise<void> {
+    const auth = getAuth()
+
+    if (!Preferences.email) {
+      throw new Error('Email is required')
+    }
+
+    await signInWithEmailAndPassword(auth, Preferences.email, password)
+  }
+
+  onUserChanged(callback: (user: any) => void): void {
+    onAuthStateChanged(getAuth(), callback)
   }
 
   async pull(): Promise<Block[]> {

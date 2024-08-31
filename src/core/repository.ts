@@ -54,6 +54,9 @@ export abstract class Repository {
 }
 
 export abstract class Cloud {
+  abstract signIn(password: string): Promise<void>
+  abstract onUserChanged(callback: (user: any) => void): void
+
   abstract pull(): Promise<Block[]>
   abstract commit(block: Block): Promise<void>
 }

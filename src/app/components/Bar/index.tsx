@@ -1,4 +1,5 @@
 import { useLiveQuery } from 'dexie-react-hooks'
+import { Link } from 'react-router-dom'
 
 import { Action } from '../../../core'
 import { useRepository } from '../../hooks'
@@ -15,6 +16,10 @@ function Bar() {
     repository.cloud?.pull().then((cloudBlocks) => {
       for (const cloudBlock of cloudBlocks) {
         const localBlock = blocks.find((item) => item.id === cloudBlock.id)
+
+        if (!localBlock) {
+          repository.command({ action: Action.ADD, noUpdate: true }, cloudBlock)
+        }
 
         if (localBlock && localBlock.updatedAt < cloudBlock.updatedAt) {
           repository.command(
@@ -39,11 +44,16 @@ function Bar() {
       </div>
       <span className="material-symbols-rounded">undo</span>
       <span className="material-symbols-rounded">redo</span>
+
       <span className="material-symbols-rounded" onClick={onCloudSyncClick}>
         cloud_sync
       </span>
+
       <span className="material-symbols-rounded">wifi_tethering</span>
-      <span className="material-symbols-rounded">settings</span>
+
+      <Link to="/settings" className="material-symbols-rounded">
+        settings
+      </Link>
     </header>
   )
 }
