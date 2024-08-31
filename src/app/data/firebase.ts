@@ -9,8 +9,9 @@ import {
   setDoc,
 } from 'firebase/firestore'
 import { Block } from '../../core/block'
+import { Cloud } from '../../core/repository'
 
-export class FirestoreBackup {
+export class FirebaseCloud implements Cloud {
   private firestore: Firestore
 
   constructor() {

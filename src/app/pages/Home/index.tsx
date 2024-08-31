@@ -1,5 +1,4 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { Action } from '../../../core'
 import { Block, BlockType } from '../../../core'
 import { useRepository } from '../../hooks'
 
@@ -14,15 +13,7 @@ function Home() {
     }),
   )
 
-  function onBlockClick(event: React.MouseEvent<HTMLLIElement>) {
-    const blockId = event.currentTarget.id
-    const block = blocks?.find((block) => block.id === blockId)
-
-    if (block) {
-      block.type = BlockType.NOTE
-      repository.command({ action: Action.UPDATE }, block)
-    }
-  }
+  function onBlockClick() {}
 
   return (
     <main>

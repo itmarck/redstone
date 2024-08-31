@@ -1,13 +1,19 @@
 import { Dexie, EntityTable } from 'dexie'
 import { Block, Entry } from '../../core'
-import { Action, Command, Criteria, Repository } from '../../core/repository'
+import {
+  Action,
+  Cloud,
+  Command,
+  Criteria,
+  Repository,
+} from '../../core/repository'
 
 export class DexieRepository extends Repository {
   blocks
   entries
 
-  constructor() {
-    super()
+  constructor(cloud?: Cloud) {
+    super(cloud)
 
     const dexie = new Dexie('redstone') as Dexie & {
       blocks: EntityTable<Block, 'id'>
@@ -66,7 +72,9 @@ export class DexieRepository extends Repository {
     const action = command.action
     const blockId = block.id
 
-    block.update()
+    if (!command.noUpdate) {
+      block.update()
+    }
 
     switch (action) {
       case Action.ADD:

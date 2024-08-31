@@ -1,1 +1,2 @@
-export { DexieRepository } from './dexie_repository'
+export { DexieRepository } from './dexie'
+export { FirebaseCloud } from './firebase'

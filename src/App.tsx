@@ -1,11 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { RepositoryProvider } from './app/context/repository'
-import { DexieRepository } from './app/data'
+import { DexieRepository, FirebaseCloud } from './app/data'
 import { routes } from './app/pages'
 
 const router = createBrowserRouter(routes)
-const repository = new DexieRepository()
+const cloud = new FirebaseCloud()
+const repository = new DexieRepository(cloud)
 
 function App() {
   return (

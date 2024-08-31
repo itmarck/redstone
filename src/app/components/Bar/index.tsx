@@ -1,8 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 
-import { FirestoreBackup } from '../../data/firestore_backup'
-import { useRepository } from '../../hooks'
 import { Action } from '../../../core'
+import { useRepository } from '../../hooks'
 
 function Bar() {
   const repository = useRepository()
@@ -13,18 +12,21 @@ function Bar() {
   function onCloudSyncClick() {
     if (!localBlocks || !blocks) return
 
-    new FirestoreBackup().pull().then((cloudBlocks) => {
+    repository.cloud?.pull().then((cloudBlocks) => {
       for (const cloudBlock of cloudBlocks) {
         const localBlock = blocks.find((item) => item.id === cloudBlock.id)
 
         if (localBlock && localBlock.updatedAt < cloudBlock.updatedAt) {
-          repository.command({ action: Action.UPDATE }, cloudBlock)
+          repository.command(
+            { action: Action.UPDATE, noUpdate: true },
+            cloudBlock,
+          )
         }
       }
 
       for (const block of localBlocks) {
-        new FirestoreBackup().commit(block).then(() => {
-          repository.command({ action: Action.UPDATE }, block)
+        repository.cloud?.commit(block).then(() => {
+          repository.command({ action: Action.UPDATE, noUpdate: true }, block)
         })
       }
     })
