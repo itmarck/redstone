@@ -1,0 +1,19 @@
+/* Flex */
+.row {
+  display: flex;
+  flex-direction: row;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.auto {
+  flex: auto;
+}
+.cropped {
+  overflow: hidden;
+}
+.pointer {
+  cursor: pointer;
+}

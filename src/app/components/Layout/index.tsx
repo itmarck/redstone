@@ -8,13 +8,13 @@ import './Layout.css'
 
 function Layout() {
   return (
-    <div className="Layout">
+    <div className="Layout row">
       <Navigation />
 
-      <div className="Layout__block">
+      <div className="auto column">
         <Bar />
 
-        <main className="Layout__content">
+        <main className="Layout__content auto">
           <Outlet />
         </main>
       </div>

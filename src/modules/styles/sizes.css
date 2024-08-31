@@ -1,0 +1,26 @@
+/* Padding   */
+.sunken {
+  padding: 1rem;
+}
+.narrow {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.crushed {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Pixels */
+.tiny {
+  font-size: 12px;
+}
+.small {
+  font-size: 14px;
+}
+.regular {
+  font-size: 16px;
+}
+.large {
+  font-size: 24px;
+}

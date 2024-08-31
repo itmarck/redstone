@@ -1,16 +1,8 @@
 .Layout {
   display: flex;
-  overflow: hidden;
-}
-
-.Layout__block {
-  flex: auto;
-  display: flex;
-  flex-direction: column;
 }
 
 .Layout__content {
-  flex: auto;
   margin-top: 2.5rem;
   margin-left: 3rem;
   margin-bottom: 3rem;
@@ -28,10 +20,6 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-.Bar__status {
-  flex: auto;
-}
-.Bar .material-symbols-rounded {
-  font-size: 16px;
+  z-index: 1;
+  background-color: var(--theme-background-color);
 }

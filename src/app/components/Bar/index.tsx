@@ -39,19 +39,24 @@ function Bar() {
 
   return (
     <header className="Bar">
-      <div className="Bar__status">
+      <div className="auto">
         {count ? `${count} changes to be synced` : 'Everything is up to date'}
       </div>
-      <span className="material-symbols-rounded">undo</span>
-      <span className="material-symbols-rounded">redo</span>
+      <span className="material-symbols-rounded regular pointer">undo</span>
+      <span className="material-symbols-rounded regular pointer">redo</span>
 
-      <span className="material-symbols-rounded" onClick={onCloudSyncClick}>
+      <span
+        className="material-symbols-rounded regular pointer"
+        onClick={onCloudSyncClick}
+      >
         cloud_sync
       </span>
 
-      <span className="material-symbols-rounded">wifi_tethering</span>
+      <span className="material-symbols-rounded regular pointer">
+        wifi_tethering
+      </span>
 
-      <Link to="/settings" className="material-symbols-rounded">
+      <Link to="/settings" className="material-symbols-rounded regular pointer">
         settings
       </Link>
     </header>
