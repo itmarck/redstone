@@ -10,6 +10,11 @@ export enum BlockType {
   ACCOUNT = 'account',
 }
 
+export enum BlockState {
+  NONE = 'none',
+  DONE = 'done',
+}
+
 export enum BlockLayout {
   NONE = 'none',
 }
@@ -18,6 +23,7 @@ export class Block {
   id: BlockId
   name: string
   type: BlockType
+  state: BlockState
   layout: BlockLayout
   ranking: number
   createdAt: number
@@ -29,6 +35,7 @@ export class Block {
     this.id = createId()
     this.name = block.name || ''
     this.type = block.type || BlockType.NONE
+    this.state = BlockState.NONE
     this.layout = block.layout || BlockLayout.NONE
     this.ranking = 0
     this.createdAt = Date.now()
@@ -54,6 +61,7 @@ export class Block {
     block.id = json['id']
     block.name = json['name']
     block.type = json['type']
+    block.state = json['state']
     block.layout = json['layout']
     block.ranking = json['ranking']
     block.createdAt = json['createdAt']

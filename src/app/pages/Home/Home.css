@@ -10,11 +10,26 @@
 .List__item {
   padding: 0.5rem 1rem;
   margin: 0 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
 }
 
 .Card {
   background-color: #0c0c0c;
   border-radius: 0.5rem;
+}
+
+.Card--done {
+  opacity: 0.5;
+}
+
+.Card__body {
+  flex: auto;
+}
+
+.Card__check {
+  margin-top: 0.5rem;
 }
 
 .Card__subtitle {

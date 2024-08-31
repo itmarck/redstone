@@ -1,5 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { Block, BlockType } from '../../../core'
+
+import { Action, Block, BlockState, BlockType } from '../../../core'
 import { useRepository } from '../../hooks'
 
 import './Home.css'
@@ -13,7 +14,12 @@ function Home() {
     }),
   )
 
-  function onBlockClick() {}
+  function onBlockCheck(block: Block) {
+    block.state =
+      block.state === BlockState.DONE ? BlockState.NONE : BlockState.DONE
+
+    repository.command({ action: Action.UPDATE }, block)
+  }
 
   return (
     <main>
@@ -23,14 +29,23 @@ function Home() {
             <li
               key={block.id}
               id={block.id}
-              className="Card List__item"
-              onClick={onBlockClick}
+              className={`Card List__item ${
+                block.state === BlockState.DONE ? 'Card--done' : ''
+              }`}
             >
-              <div className="Card__title">
-                [{block.ranking} {block.type}] {block.name}
-              </div>
-              <div className="Card__subtitle">
-                {parseElapsedTime(block.createdAt)}
+              <input
+                className="Card__check"
+                checked={block.state === BlockState.DONE}
+                type="checkbox"
+                onChange={() => onBlockCheck(block)}
+              />
+              <div className="Card__body">
+                <div className="Card__title">
+                  [{block.ranking} {block.type}] {block.name}
+                </div>
+                <div className="Card__subtitle">
+                  {parseElapsedTime(block.createdAt)}
+                </div>
               </div>
             </li>
           ))}
