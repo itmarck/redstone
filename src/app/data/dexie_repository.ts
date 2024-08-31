@@ -66,6 +66,8 @@ export class DexieRepository extends Repository {
     const action = command.action
     const blockId = block.id
 
+    block.update()
+
     switch (action) {
       case Action.ADD:
         if (command.entry) {

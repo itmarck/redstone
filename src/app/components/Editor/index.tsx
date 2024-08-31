@@ -20,9 +20,17 @@ function Editor() {
   return (
     <div>
       <header style={{ padding: '1rem' }}>
-        <h1>{block.name}</h1>
+        <h1>
+          <Editable
+            value={block.name}
+            onChange={(value) => {
+              block.name = value
+              repository.command({ action: Action.UPDATE }, block)
+            }}
+          />
+        </h1>
         <p style={{ fontSize: '0.8rem', color: '#999' }}>
-          {new Date(block.updatedAt).toDateString()}
+          {new Date(block.createdAt).toDateString()}
         </p>
       </header>
       <section className="Editor">
@@ -35,10 +43,7 @@ function Editor() {
               repository.command(
                 {
                   action: Action.UPDATE,
-                  entry: {
-                    ...entry,
-                    content: value,
-                  },
+                  entry: { ...entry, content: value },
                 },
                 block,
               )

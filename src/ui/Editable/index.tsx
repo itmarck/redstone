@@ -27,6 +27,7 @@ function Editable({ className, value, onChange }: EditableProps) {
       contentEditable
       suppressContentEditableWarning
       onInput={onInput}
+      style={{ outline: 'none' }}
     >
       {internalValue}
     </div>
