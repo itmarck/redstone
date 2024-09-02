@@ -23,12 +23,13 @@ export class Block {
   id: BlockId
   name: string
   type: BlockType
-  state: BlockState
+  state: BlockState // TODO: Move to percent instead
   layout: BlockLayout
+  percent: number
   ranking: number
   createdAt: number
   updatedAt: number
-  syncedAt?: number
+  syncedAt?: number // Move to only number with zero?
   deletedAt?: number
 
   constructor(block: Partial<Block>) {
@@ -37,6 +38,7 @@ export class Block {
     this.type = block.type || BlockType.NONE
     this.state = BlockState.NONE
     this.layout = block.layout || BlockLayout.NONE
+    this.percent = 0
     this.ranking = 0
     this.createdAt = Date.now()
     this.updatedAt = Date.now()
@@ -63,6 +65,7 @@ export class Block {
     block.type = json['type']
     block.state = json['state']
     block.layout = json['layout']
+    block.percent = json['percent']
     block.ranking = json['ranking']
     block.createdAt = json['createdAt']
     block.updatedAt = json['updatedAt']
