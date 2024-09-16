@@ -2,9 +2,9 @@ import { RouteObject } from 'react-router-dom'
 
 import Editor from '../components/Editor'
 import Layout from '../components/Layout'
-import Accounts from './Accounts'
-import Home from './Home'
-import Notes from './Notes'
+import Archive from './Archive'
+import Finance from './Finance'
+import Planner from './Planner'
 import Settings from './Settings'
 
 export const routes: RouteObject[] = [
@@ -14,14 +14,14 @@ export const routes: RouteObject[] = [
     children: [
       {
         path: '',
-        Component: Home,
+        Component: Planner,
       },
       {
         path: 'notes',
         children: [
           {
             path: '',
-            Component: Notes,
+            Component: Archive,
           },
           {
             path: ':id',
@@ -30,8 +30,8 @@ export const routes: RouteObject[] = [
         ],
       },
       {
-        path: 'accounts',
-        Component: Accounts,
+        path: 'finances',
+        Component: Finance,
       },
       {
         path: 'settings',

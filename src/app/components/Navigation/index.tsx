@@ -21,7 +21,7 @@ function Navigation() {
           </Link>
         </li>
         <li>
-          <Link to="/accounts">
+          <Link to="/finances">
             <div className="material-symbols-rounded sunken regular">
               wallet
             </div>

@@ -3,9 +3,9 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { Action, Block, BlockState, BlockType } from '../../../core'
 import { useRepository } from '../../hooks'
 
-import './Home.css'
+import './Planner.css'
 
-function Home() {
+function Planner() {
   const repository = useRepository()
   const blocks = useLiveQuery(() =>
     repository.query({
@@ -71,4 +71,4 @@ function parseElapsedTime(time: number) {
   return `${minutes} min ago`
 }
 
-export default Home
+export default Planner
