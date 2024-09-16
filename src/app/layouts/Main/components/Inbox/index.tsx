@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react'
 
 import { Action, Block, BlockType } from '../../../../../core'
-import { useRepository } from '../../../../hooks'
+import { useRepository } from '../../../../store/hooks'
 
 import './Inbox.css'
 

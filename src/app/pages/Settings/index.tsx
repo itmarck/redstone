@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { FirebaseCloud, Preferences } from '../../data'
-import { useRepository } from '../../hooks'
+import { useRepository } from '../../store/hooks'
 
 import './Settings.css'
 

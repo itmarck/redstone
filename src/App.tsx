@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import { RepositoryProvider } from './app/context/repository'
 import { DexieRepository, FirebaseCloud, Preferences } from './app/data'
 import { routes } from './app/pages'
+import { RepositoryProvider } from './app/store/repository'
 
 const router = createBrowserRouter(routes)
 const cloud = Preferences.cloud === 'firebase' ? new FirebaseCloud() : undefined

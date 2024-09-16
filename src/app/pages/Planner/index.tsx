@@ -1,7 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 
 import { Action, Block, BlockState, BlockType } from '../../../core'
-import { useRepository } from '../../hooks'
+import { useRepository } from '../../store/hooks'
 
 import './Planner.css'
 

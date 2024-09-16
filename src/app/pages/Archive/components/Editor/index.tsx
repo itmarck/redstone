@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import { Action, Entry } from '../../../../../core'
 import Editable from '../../../../components/Editable'
-import { useRepository } from '../../../../hooks'
+import { useRepository } from '../../../../store/hooks'
 
 import './Editor.css'
 

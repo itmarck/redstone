@@ -2,7 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { useNavigate } from 'react-router-dom'
 
 import { Block, BlockType } from '../../../core'
-import { useRepository } from '../../hooks'
+import { useRepository } from '../../store/hooks'
 
 function Archive() {
   const navigate = useNavigate()
