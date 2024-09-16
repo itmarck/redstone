@@ -2,7 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { useParams } from 'react-router-dom'
 
 import { Action, Entry } from '../../../../../core'
-import Editable from '../../../../../ui/Editable'
+import Editable from '../../../../components/Editable'
 import { useRepository } from '../../../../hooks'
 
 import './Editor.css'
