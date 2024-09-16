@@ -1,4 +1,21 @@
+type CloudProvider = 'none' | 'firebase' | 'mongodb'
+
 export class Preferences {
+  cloud: CloudProvider = 'none'
+  email?: string
+  identifier?: string
+  apiKey?: string
+
+  constructor() {}
+
+  static get instance(): Preferences {
+    return new Preferences()
+  }
+
+  static update(payload: Partial<Preferences>) {
+    Object.assign(Preferences.instance, payload)
+  }
+
   static get cloud() {
     return localStorage.getItem('cloud_provider') || 'none'
   }
