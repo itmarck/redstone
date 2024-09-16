@@ -1,8 +1,8 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { Link } from 'react-router-dom'
 
-import { Action } from '../../../core'
-import { useRepository } from '../../hooks'
+import { Action } from '../../../../../core'
+import { useRepository } from '../../../../hooks'
 
 function Bar() {
   const repository = useRepository()

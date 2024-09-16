@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router-dom'
 
-import Bar from '../Bar'
-import Inbox from '../Inbox'
-import Navigation from '../Navigation'
+import Bar from './components/Bar'
+import Inbox from './components/Inbox'
+import Navigation from './components/Navigation'
 
-import './Layout.css'
+import './Main.css'
 
-function Layout() {
+function Main() {
   return (
     <div className="Layout row">
       <Navigation />
@@ -24,4 +24,4 @@ function Layout() {
   )
 }
 
-export default Layout
+export default Main

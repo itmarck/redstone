@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Block, BlockType } from '../../../core'
 import { useRepository } from '../../hooks'
 
-function Notes() {
+function Archive() {
   const navigate = useNavigate()
   const repository = useRepository()
   const blocks = useLiveQuery(() =>
@@ -34,4 +34,4 @@ function Notes() {
   )
 }
 
-export default Notes
+export default Archive

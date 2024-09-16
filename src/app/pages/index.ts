@@ -1,8 +1,8 @@
 import { RouteObject } from 'react-router-dom'
 
-import Editor from '../components/Editor'
-import Layout from '../components/Layout'
+import Main from '../layouts/Main'
 import Archive from './Archive'
+import Editor from './Archive/components/Editor'
 import Finance from './Finance'
 import Planner from './Planner'
 import Settings from './Settings'
@@ -10,7 +10,7 @@ import Settings from './Settings'
 export const routes: RouteObject[] = [
   {
     path: '/',
-    Component: Layout,
+    Component: Main,
     children: [
       {
         path: '',
