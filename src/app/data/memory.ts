@@ -21,8 +21,16 @@ export class MemoryRepository extends Repository {
   async command(command: Command, block: Block): Promise<void> {
     switch (command.action) {
       case Action.ADD:
-        this.blocks.push(block)
+        this.blocks = [...this.blocks, block]
+        break
+      case Action.UPDATE:
+        this.blocks = this.blocks.map((b) => (b.id === block.id ? block : b))
+        break
+      case Action.DELETE:
+        this.blocks = this.blocks.filter((b) => b.id !== block.id)
         break
     }
+
+    document.dispatchEvent(new CustomEvent('memory'))
   }
 }

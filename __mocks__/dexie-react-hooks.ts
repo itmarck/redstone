@@ -14,7 +14,13 @@ export function useLiveQuery<T>(querier: () => T | Promise<T>) {
       }
     }
 
+    document.addEventListener('memory', update)
+
     update()
+
+    return () => {
+      document.removeEventListener('memory', update)
+    }
   }, [querier])
 
   return data
