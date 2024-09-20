@@ -42,6 +42,8 @@ function Inbox() {
       />
 
       <svg
+        role="button"
+        aria-label="Send to inbox"
         className="Inbox__button"
         viewBox="0 0 28 28"
         version="1.1"

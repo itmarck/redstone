@@ -1,11 +1,14 @@
 import { render, screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { describe, expect, it } from 'vitest'
+import { createMemoryRouter, RouterProvider } from 'react-router-dom'
+import { describe, it } from 'vitest'
 
-import Planner from '..'
-import { Action, Block } from '../../../../core'
+import { Action, Block, BlockType } from '../../../../core'
 import { MemoryRepository } from '../../../data/memory'
+import { routes } from '../../../pages'
 import { RepositoryProvider } from '../../../store/repository'
+
+const router = createMemoryRouter(routes, { initialEntries: ['/'] })
 
 export class FactoryRepository {
   static count(count: number) {
@@ -17,6 +20,7 @@ export class FactoryRepository {
         Block.from({
           id: `${i + 1}`,
           name: `test${i + 1}`,
+          type: BlockType.TASK,
         }),
       )
     }
@@ -25,29 +29,20 @@ export class FactoryRepository {
   }
 }
 
-describe('<Planner />', () => {
-  it('should render the component', async () => {
+describe('Page: Planner', () => {
+  it('should add a task to the inbox', async ({ expect }) => {
     render(
       <RepositoryProvider value={FactoryRepository.count(2)}>
-        <Planner />
+        <RouterProvider router={router} />
       </RepositoryProvider>,
     )
 
-    const elements = await screen.findAllByRole('listitem')
-    expect(elements.length).to.be.equals(2)
-  })
+    const textbox = screen.getByPlaceholderText("What's on your mind?")
+    await userEvent.type(textbox, 'new task')
 
-  it('should mark the block as done', async () => {
-    render(
-      <RepositoryProvider value={FactoryRepository.count(1)}>
-        <Planner />
-      </RepositoryProvider>,
-    )
+    const button = screen.getByRole('button', { name: 'Send to inbox' })
+    await userEvent.click(button)
 
-    const checkbox = await screen.findAllByRole('checkbox')
-    if (checkbox) await userEvent.click(checkbox[0])
-
-    const node = screen.getByRole('checkbox') as HTMLInputElement
-    expect(node.checked).to.be.true
+    expect(await screen.findByText(/new task/i)).to.exist
   })
 })
