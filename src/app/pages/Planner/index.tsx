@@ -1,6 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 
-import { Action, Block, BlockState, BlockType } from '../../../core'
+import { Action, Block, BlockType } from '../../../core'
 import { useRepository } from '../../store/hooks'
 
 import './Planner.css'
@@ -15,9 +15,7 @@ function Planner() {
   )
 
   function onBlockCheck(block: Block) {
-    block.state =
-      block.state === BlockState.DONE ? BlockState.NONE : BlockState.DONE
-
+    block.percent = block.percent === 100 ? 0 : 100
     repository.command({ action: Action.UPDATE }, block)
   }
 
@@ -30,12 +28,12 @@ function Planner() {
               key={block.id}
               id={block.id}
               className={`Card List__item ${
-                block.state === BlockState.DONE ? 'Card--done' : ''
+                block.percent === 100 ? 'Card--done' : ''
               }`}
             >
               <input
                 className="Card__check"
-                checked={block.state === BlockState.DONE}
+                checked={block.percent === 100}
                 type="checkbox"
                 onChange={() => onBlockCheck(block)}
               />

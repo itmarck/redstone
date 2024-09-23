@@ -10,11 +10,6 @@ export enum BlockType {
   ACCOUNT = 'account',
 }
 
-export enum BlockState {
-  NONE = 'none',
-  DONE = 'done',
-}
-
 export enum BlockLayout {
   NONE = 'none',
 }
@@ -23,7 +18,6 @@ export class Block {
   id: BlockId
   name: string
   type: BlockType
-  state: BlockState // TODO: Move to percent instead
   layout: BlockLayout
   percent: number
   ranking: number
@@ -36,7 +30,6 @@ export class Block {
     this.id = createId()
     this.name = block.name || ''
     this.type = block.type || BlockType.NONE
-    this.state = BlockState.NONE
     this.layout = block.layout || BlockLayout.NONE
     this.percent = 0
     this.ranking = 0
@@ -63,7 +56,6 @@ export class Block {
     block.id = json['id']
     block.name = json['name']
     block.type = json['type']
-    block.state = json['state']
     block.layout = json['layout']
     block.percent = json['percent']
     block.ranking = json['ranking']
