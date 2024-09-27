@@ -8,6 +8,11 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
-    setupFiles: './tests/setup.ts',
+    setupFiles: [
+      // Global setup file
+      './tests/setup.ts',
+      // Setup a fake IndexedDB implementation for tests
+      'fake-indexeddb/auto',
+    ],
   },
 })

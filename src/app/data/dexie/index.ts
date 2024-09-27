@@ -1,12 +1,12 @@
 import { Dexie, EntityTable } from 'dexie'
-import { Block, Entry } from '../../core'
+import { Block, Entry } from '../../../core'
 import {
   Action,
   Cloud,
   Command,
   Criteria,
   Repository,
-} from '../../core/repository'
+} from '../../../core/repository'
 
 export class DexieRepository extends Repository {
   blocks
@@ -98,5 +98,10 @@ export class DexieRepository extends Repository {
       default:
         break
     }
+  }
+
+  clear() {
+    this.blocks.clear()
+    this.entries.clear()
   }
 }

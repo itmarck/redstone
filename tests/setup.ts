@@ -1,8 +1,8 @@
 import { cleanup } from '@testing-library/react'
-import { beforeEach, vi } from 'vitest'
+import { afterEach, vi } from 'vitest'
 
 vi.mock('dexie-react-hooks')
 
-beforeEach(() => {
+afterEach(() => {
   cleanup()
 })
