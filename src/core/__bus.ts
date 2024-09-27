@@ -1,5 +1,6 @@
 import { Block } from './block'
 
+// TODO: Use this implementation somewhere
 export class Bus {
   emit(type: string, data: Block) {
     window.dispatchEvent(new CustomEvent(type, { detail: data }))
