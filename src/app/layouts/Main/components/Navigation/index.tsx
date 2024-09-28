@@ -20,20 +20,6 @@ function Navigation() {
             </div>
           </Link>
         </li>
-        <li>
-          <Link to="/finances">
-            <div className="material-symbols-rounded sunken regular">
-              wallet
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link to="/settings">
-            <div className="material-symbols-rounded sunken regular">
-              search
-            </div>
-          </Link>
-        </li>
       </ul>
     </nav>
   )
