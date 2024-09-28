@@ -1,46 +1,35 @@
 type CloudProvider = 'none' | 'firebase' | 'mongodb'
 
 export class Preferences {
+  static storageKey = 'prefs'
+  static internal?: Preferences
+
   cloud: CloudProvider = 'none'
   email?: string
   identifier?: string
   apiKey?: string
 
-  constructor() {}
+  constructor() {
+    const preferences = localStorage.getItem(Preferences.storageKey)
 
-  static get instance(): Preferences {
-    return new Preferences()
+    if (preferences) {
+      Object.assign(this, JSON.parse(preferences))
+    }
   }
 
   static update(payload: Partial<Preferences>) {
     Object.assign(Preferences.instance, payload)
+    localStorage.setItem(
+      Preferences.storageKey,
+      JSON.stringify(Preferences.instance),
+    )
   }
 
-  static get cloud() {
-    return localStorage.getItem('cloud_provider') || 'none'
-  }
-  static set cloud(cloud: string) {
-    localStorage.setItem('cloud_provider', cloud)
-  }
+  static get instance(): Preferences {
+    if (!Preferences.internal) {
+      Preferences.internal = new Preferences()
+    }
 
-  static get email(): string | undefined {
-    return localStorage.getItem('email') || undefined
-  }
-  static set email(email: string) {
-    localStorage.setItem('email', email)
-  }
-
-  static get projectId(): string | undefined {
-    return localStorage.getItem('cloud_project_id') || undefined
-  }
-  static set projectId(projectId: string) {
-    localStorage.setItem('cloud_project_id', projectId)
-  }
-
-  static get apiKey(): string | undefined {
-    return localStorage.getItem('cloud_api_key') || undefined
-  }
-  static set apiKey(apiKey: string) {
-    localStorage.setItem('cloud_api_key', apiKey)
+    return Preferences.internal
   }
 }

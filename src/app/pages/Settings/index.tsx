@@ -7,7 +7,8 @@ import './Settings.css'
 
 function Settings() {
   const repository = useRepository()
-  const [cloud, setCloud] = useState(Preferences.cloud)
+  const preferences = Preferences.instance
+  const [cloud, setCloud] = useState(preferences.cloud)
   const [user, setUser] = useState<any>(null)
   const userId = user && user.uid
 
@@ -19,15 +20,11 @@ function Settings() {
     event.preventDefault()
 
     const email = (event.currentTarget[0] as HTMLInputElement).value
-    const projectId = (event.currentTarget[1] as HTMLInputElement).value
+    const identifier = (event.currentTarget[1] as HTMLInputElement).value
     const apiKey = (event.currentTarget[2] as HTMLInputElement).value
 
-    if (email && projectId && apiKey) {
-      Preferences.cloud = cloud
-      Preferences.email = email
-      Preferences.projectId = projectId
-      Preferences.apiKey = apiKey
-
+    if (email && identifier && apiKey) {
+      Preferences.update({ cloud, email, identifier, apiKey })
       repository.cloud = new FirebaseCloud()
 
       alert('All set!')
@@ -51,7 +48,7 @@ function Settings() {
         <p>Select the cloud provider you want to use.</p>
         <select
           value={cloud}
-          onChange={(event) => setCloud(event.target.value)}
+          onChange={(event) => setCloud(event.target.value as any)}
         >
           <option value="none">None</option>
           <option value="firebase">Firebase</option>
@@ -61,19 +58,19 @@ function Settings() {
           <form className="FirebaseForm" onSubmit={onFirebaseSubmit}>
             <label>Email</label>
             <input
-              defaultValue={Preferences.email}
+              defaultValue={preferences.email}
               placeholder="For identification purpose"
             />
             <div />
             <label>Project ID</label>
             <input
-              defaultValue={Preferences.projectId}
+              defaultValue={preferences.identifier}
               placeholder="Project ID"
             />
             <div />
             <label>API Key</label>
             <input
-              defaultValue={Preferences.apiKey}
+              defaultValue={preferences.apiKey}
               placeholder="Public API Key"
             />
             <div />

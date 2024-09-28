@@ -20,8 +20,8 @@ export class FirebaseCloud implements Cloud {
   private firestore: Firestore
 
   constructor() {
-    const projectId = Preferences.projectId
-    const apiKey = Preferences.apiKey
+    const projectId = Preferences.instance.identifier
+    const apiKey = Preferences.instance.apiKey
     const app = initializeApp({ projectId, apiKey })
     const firestore = getFirestore(app)
 
@@ -33,11 +33,11 @@ export class FirebaseCloud implements Cloud {
   async signIn(password: string): Promise<void> {
     const auth = getAuth()
 
-    if (!Preferences.email) {
+    if (!Preferences.instance.email) {
       throw new Error('Email is required')
     }
 
-    await signInWithEmailAndPassword(auth, Preferences.email, password)
+    await signInWithEmailAndPassword(auth, Preferences.instance.email, password)
   }
 
   onUserChanged(callback: (user: any) => void): void {
