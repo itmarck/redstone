@@ -1,7 +1,7 @@
-import { Block, Cloud } from '../../core'
+import { Block } from '../../core'
 
 // TODO
-export class MongoDbCloud implements Cloud {
+export class MongoDbCloud  {
   pull(): Promise<Block[]> {
     throw new Error('Method not implemented.')
   }
