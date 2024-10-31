@@ -5,14 +5,7 @@ import { routes } from './app/pages'
 import { RepositoryProvider } from './app/store/repository'
 
 const router = createBrowserRouter(routes)
-
-const cloudInstances = {
-  firebase: new FirebaseCloud(),
-  mongodb: undefined,
-  none: undefined,
-}
-
-const cloud = cloudInstances[Preferences.instance.cloud]
+const cloud = getCloudInstance()
 const repository = new DexieRepository(cloud)
 
 function App() {
@@ -21,6 +14,15 @@ function App() {
       <RouterProvider router={router} />
     </RepositoryProvider>
   )
+}
+
+function getCloudInstance() {
+  switch (Preferences.instance.cloud) {
+    case 'firebase':
+      return new FirebaseCloud()
+    default:
+      return
+  }
 }
 
 export default App
