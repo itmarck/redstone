@@ -30,7 +30,5 @@ export class MemoryRepository extends Repository {
         this.blocks = this.blocks.filter((b) => b.id !== block.id)
         break
     }
-
-    document.dispatchEvent(new CustomEvent('memory'))
   }
 }

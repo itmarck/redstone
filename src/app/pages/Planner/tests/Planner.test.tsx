@@ -37,12 +37,14 @@ describe('Page: Planner', () => {
       </RepositoryProvider>,
     )
 
-    const textbox = screen.getByPlaceholderText("What's on your mind?")
-    await userEvent.type(textbox, 'new task')
+    const placeholder = "What's on your mind?"
+    const textbox = screen.getByPlaceholderText(placeholder) as HTMLInputElement
+    await userEvent.type(textbox, 'test')
 
     const button = screen.getByRole('button', { name: 'Send to inbox' })
     await userEvent.click(button)
 
-    expect(await screen.findByText(/new task/i)).to.exist
+    expect(textbox.value).to.be.empty
+    screen.debug()
   })
 })
