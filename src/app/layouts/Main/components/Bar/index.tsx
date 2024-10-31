@@ -7,7 +7,7 @@ import { useRepository } from '../../../../store/hooks'
 function Bar() {
   const repository = useRepository()
   const blocks = useLiveQuery(() => repository.query({}))
-  const localBlocks = blocks?.filter((block) => !block.syncedAt)
+  const localBlocks = blocks?.filter((block) => block.syncedAt === 0)
   const count = localBlocks?.length || 0
 
   function onCloudSyncClick() {

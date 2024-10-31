@@ -23,8 +23,8 @@ export class Block {
   ranking: number
   createdAt: number
   updatedAt: number
-  syncedAt?: number // Move to only number with zero?
-  deletedAt?: number
+  syncedAt: number = 0
+  deletedAt: number = 0
 
   constructor(block: Partial<Block>) {
     this.id = createId()
@@ -39,7 +39,7 @@ export class Block {
 
   update() {
     this.updatedAt = Date.now()
-    this.syncedAt = undefined
+    this.syncedAt = 0
   }
 
   commit() {
@@ -61,8 +61,8 @@ export class Block {
     block.ranking = json['ranking']
     block.createdAt = json['createdAt']
     block.updatedAt = json['updatedAt']
-    block.syncedAt = json['syncedAt']
-    block.deletedAt = json['deletedAt']
+    block.syncedAt = json['syncedAt'] || 0
+    block.deletedAt = json['deletedAt'] || 0
 
     return block
   }

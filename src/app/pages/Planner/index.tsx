@@ -39,7 +39,7 @@ function Planner() {
               />
               <div className="Card__body">
                 <div className="Card__title">
-                  [{block.ranking} {block.type}] {block.name}
+                  [{block.ranking}] {block.name}
                 </div>
                 <div className="Card__subtitle">
                   {parseElapsedTime(block.createdAt)}
